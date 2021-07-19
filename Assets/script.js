@@ -7,6 +7,36 @@ function init() {
 // Fetch all norad-IDs
     // Render to page
 
+function getNorad() {
+        // fetch request gets a list of all the repos for the node.js organization
+    var requestUrl = "https://api.spectator.earth/satellite";
+      
+    fetch(requestUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+            console.log(data.features);
+      
+            //   loop to cycle through the data to pull out name and Nordad_ID of sattelite.
+      
+            for (var i = 0; i < data.features.length; i++) {
+              // pushing sat name and norad_id into emtpy array.
+              satelliteName.push(data.features[i].properties.name);
+              norad.push(data.features[i].properties.norad_id);
+            }
+          });
+      }
+      getNorad();
+      // empty arrays for the satellite name and norad_id to be pushed into.
+      var satelliteName = [];
+      var norad = [];
+      
+      console.log(satelliteName);
+      console.log(norad);
+      
+
     // Add event listener to each norad-ID element
         // Get selected norad-ID
 
