@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+i {
+    color: yellow;
+}
+
+.fa-angle-down {
+    color: black;
+}
+.title {
+    margin: 4px;
+    color:black;
+}
+i {
+    margin: 3px;
+}
+body {
+    background-color: rebeccapurple;
+}
+
+section {
+    justify-content: center;
+    text-align: center;
+    letter-spacing: 1px;
+    
+}
