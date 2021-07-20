@@ -1,22 +1,30 @@
 * {
-    margin: 0;
-    padding: 0;
-}
-
-i {
-    color: yellow;
+    margin: 0px;
+    padding: 0px;
+    border-radius: 10px;
 }
 
 .fa-angle-down {
     color: black;
 }
-.title {
+header .title {
     margin: 4px;
     color:black;
+    font-family: 'Courgette';
+    letter-spacing: 2px;
+    font-size: 45px;
 }
+
+.subtitle {
+font-family: 'Spectral';
+font-size: 22px;
+}
+
 i {
     margin: 3px;
+    color: yellow;
 }
+
 body {
     background-color: rebeccapurple;
 }
@@ -26,4 +34,12 @@ section {
     text-align: center;
     letter-spacing: 1px;
     
+}
+
+footer {
+    width: 100%;
+}
+
+article {
+    border: solid black 1px;
 }
