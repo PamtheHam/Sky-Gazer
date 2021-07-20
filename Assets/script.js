@@ -30,30 +30,34 @@ function getNorad() {
                 satelliteName.push(data.features[i].properties.name);
                 norad.push(data.features[i].properties.norad_id);
             }
-            for (var i = 0; i < norad.length; i++) {
-                satellitePasses(norad[i], lat, lon);
-            }
 
             renderNoradIDs();
         });
 }
 
-// Render to page
+// Render norad IDs to page
 function renderNoradIDs() {
-    // Add event listener to each norad-ID element
-    // Get selected norad-ID
     for (var i = 0; i < norad.length; i++) {
         var satelliteButton = document.createElement("button");
         satelliteButton.setAttribute("class", "norad-id-button");
-        satelliteButton.textContent =  satelliteName[i] + " " + norad[i];
+        satelliteButton.setAttribute("data-id", norad[i]);
+        satelliteButton.textContent = satelliteName[i] + " " + norad[i];
         satelliteContainerEl.appendChild(satelliteButton);
+
+        // Add event listeners to each satellite button
+        satelliteButton.addEventListener("click", handleClick);
     }
 }
 
+function handleClick(event) {
+    console.log(event.target.getAttribute("data-id"));
+    var noradid = event.target.getAttribute("data-id");
+
+    satellitePasses(noradid, lat, lon);
+}
+
 function satellitePasses(noradid, lat, lon) {
-    console.log(noradid);
     var otherUrl = "https://satellites.fly.dev/passes/" + noradid + "?lat=" + lat + "&lon=" + lon + "&limit=100&days=7&visible_only=true"
-    console.log(otherUrl);
 
     fetch(otherUrl)
         .then(function (response) {
@@ -61,6 +65,8 @@ function satellitePasses(noradid, lat, lon) {
         })
         .then(function (data) {
             console.log(data);
+            console.log(data.length);
+            console.log(data[0].culmination.utc_datetime);
         })
 }
 
@@ -85,7 +91,6 @@ function fetchLatLon(cityInput) {
 // Fetch satellite data using lat/lon, norad-ID
 // Render next X satellites to page as buttons
 
-// Add event listeners to each satellite button
 // Fetch weather data using lat/lon and date
 function fetchWeather(lat, lon) {
     fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts&units=imperial&appid=c8aa884e6f28d929f55e9ba1856815bd")
