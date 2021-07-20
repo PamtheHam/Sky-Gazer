@@ -1,4 +1,8 @@
 const currentDate = moment();
+var lat = 0;
+var lon = 0;
+var satelliteName = [];
+var norad = [];
 
 function init() {
     fetchLatLon("Raleigh");
@@ -26,12 +30,29 @@ function getNorad() {
               satelliteName.push(data.features[i].properties.name);
               norad.push(data.features[i].properties.norad_id);
             }
+            for (var i=0; i<norad.length; i++){
+            satellitePasses(norad[i], lat, lon);
+            }
           });
       }
-      getNorad();
+    //   getNorad();
       // empty arrays for the satellite name and norad_id to be pushed into.
-      var satelliteName = [];
-      var norad = [];
+     
+
+function satellitePasses(noradid, lat, lon) {
+    console.log(noradid);
+    var otherUrl = "https://satellites.fly.dev/passes/" + noradid + "?lat=" + lat + "&lon=" + lon + "&limit=100&days=7&visible_only=true"
+    console.log(otherUrl);
+
+    fetch(otherUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+        })
+}
+      
       
       console.log(satelliteName);
       console.log(norad);
@@ -48,10 +69,12 @@ function fetchLatLon(cityInput) {
             return response.json();
         })
         .then(function (data) {
-            var lat = data[0].lat;
-            var lon = data[0].lon;
+             lat = data[0].lat;
+             lon = data[0].lon;
 
             fetchWeather(lat, lon);
+            getNorad();
+            
         })
 }
 
