@@ -43,3 +43,7 @@ footer {
 article {
     border: solid black 1px;
 }
+
+.norad-id-button {
+    display: block;
+}
