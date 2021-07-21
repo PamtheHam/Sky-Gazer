@@ -1,14 +1,15 @@
 var satelliteContainerEl = document.querySelector("#satellite-container");
+var cityInputEl = document.querySelector("#city-input");
 
 const currentDate = moment();
 var lat = 0;
 var lon = 0;
 var satelliteName = [];
 var norad = [];
+var noradid;
 
 function init() {
     getNorad();
-    fetchLatLon("Raleigh");
 }
 
 // Fetch all norad-IDs
@@ -21,9 +22,6 @@ function getNorad() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
-            console.log(data.features);
-
             //   loop to cycle through the data to pull out name and Nordad_ID of sattelite.
             for (var i = 0; i < data.features.length; i++) {
                 // pushing sat name and norad_id into emtpy array.
@@ -50,14 +48,13 @@ function renderNoradIDs() {
 }
 
 function handleClick(event) {
-    console.log(event.target.getAttribute("data-id"));
-    var noradid = event.target.getAttribute("data-id");
+    noradid = event.target.getAttribute("data-id");
 
-    satellitePasses(noradid, lat, lon);
+    fetchLatLon(cityInputEl.value);
 }
 
 function satellitePasses(noradid, lat, lon) {
-    var otherUrl = "https://satellites.fly.dev/passes/" + noradid + "?lat=" + lat + "&lon=" + lon + "&limit=100&days=7&visible_only=true"
+    var otherUrl = "https://satellites.fly.dev/passes/" + noradid + "?lat=" + lat + "&lon=" + lon + "&limit=100&days=7&visible_only=true";
 
     fetch(otherUrl)
         .then(function (response) {
@@ -69,9 +66,6 @@ function satellitePasses(noradid, lat, lon) {
             console.log(data[0].culmination.utc_datetime);
         })
 }
-
-console.log(satelliteName);
-console.log(norad);
 
 // Get user input: city, norad-ID
 // Convert user input (city) to lat/lon
@@ -85,6 +79,7 @@ function fetchLatLon(cityInput) {
             lon = data[0].lon;
 
             fetchWeather(lat, lon);
+            satellitePasses(noradid, lat, lon);
         })
 }
 
@@ -111,5 +106,7 @@ function fetchWeather(lat, lon) {
 
 // If not favorable,
 // Render "not visible"
+
+// Render how many satellite passes for chosen norad ID
 
 init();
