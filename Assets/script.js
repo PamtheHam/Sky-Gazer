@@ -113,6 +113,15 @@ function fetchWeather(lat, lon) {
         .then(function (data) {
             // Get weather icon
             console.log(data);
+            console.log(data.daily[0].dt);
+      var weatherTime = data.daily[1].dt;
+      console.log(weatherTime);
+
+      var unixToUTC = moment.unix(weatherTime);
+      var localTime = moment(unixToUTC);
+        
+      console.log(unixToUTC);
+      console.log(localTime);
         })
 }
 
