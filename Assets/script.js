@@ -1,5 +1,6 @@
 var satelliteContainerEl = document.querySelector("#satellite-container");
 var cityInputEl = document.querySelector("#city-input");
+var satellitePassesContainerEl = document.querySelector(".satellite-passes-container");
 
 const currentDate = moment();
 var lat = 0;
@@ -53,6 +54,7 @@ function handleClick(event) {
     fetchLatLon(cityInputEl.value);
 }
 
+// Fetch satellite pass information of given norad ID: number of passes, time/date of passes
 function satellitePasses(noradid, lat, lon) {
     var otherUrl = "https://satellites.fly.dev/passes/" + noradid + "?lat=" + lat + "&lon=" + lon + "&limit=100&days=7&visible_only=true";
 
@@ -61,13 +63,32 @@ function satellitePasses(noradid, lat, lon) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
-            console.log(data.length);
-            console.log(data[0].culmination.utc_datetime);
+            // Number of passes
+            var numberPasses = data.length;
+
+            // Date/time of passes
+            var dateTimePasses = [];
+            for (var i = 0; i < data.length; i++) {
+                dateTimePasses.push(data[i].culmination.utc_datetime);
+            }
+
+            renderSatellitePasses(numberPasses, dateTimePasses);
         })
 }
 
-// Get user input: city, norad-ID
+// Render satellite pass information to page
+function renderSatellitePasses(numberPasses, dateTimePasses) {
+    var satelliteNumber = document.createElement("p");
+    satelliteNumber.textContent = numberPasses;
+    satellitePassesContainerEl.appendChild(satelliteNumber);
+
+    for (var i = 0; i < dateTimePasses.length; i++) {
+        var satellitePasses = document.createElement("p");
+        satellitePasses.textContent = dateTimePasses[i];
+        satellitePassesContainerEl.appendChild(satellitePasses);
+    }
+}
+
 // Convert user input (city) to lat/lon
 function fetchLatLon(cityInput) {
     fetch("https://api.openweathermap.org/geo/1.0/direct?q=" + cityInput + "&limit=1&appid=c8aa884e6f28d929f55e9ba1856815bd")
@@ -82,9 +103,6 @@ function fetchLatLon(cityInput) {
             satellitePasses(noradid, lat, lon);
         })
 }
-
-// Fetch satellite data using lat/lon, norad-ID
-// Render next X satellites to page as buttons
 
 // Fetch weather data using lat/lon and date
 function fetchWeather(lat, lon) {
