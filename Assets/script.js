@@ -1,6 +1,8 @@
 var satelliteContainerEl = document.querySelector("#satellite-container");
 var cityInputEl = document.querySelector("#city-input");
 var satellitePassesContainerEl = document.querySelector(".satellite-passes-container");
+var isVisibleEl = document.querySelector(".is-visible");
+
 
 const currentDate = moment();
 var lat = 0;
@@ -69,7 +71,7 @@ function satellitePasses(noradid, lat, lon) {
             // Date/time of passes
             var dateTimePasses = [];
             for (var i = 0; i < data.length; i++) {
-                
+
                 var localSattelite = data[i].culmination.utc_datetime
                 var passDateTime = moment.utc(localSattelite).local().format('MMM-Do-YYYY h:mm A')
                 var passDate = moment.utc(localSattelite).local().format('MMM-Do-YYYY');
@@ -119,15 +121,25 @@ function fetchWeather(lat, lon) {
             // Get weather icon
             console.log(data);
             console.log(data.daily[0].dt);
-      var weatherTime = data.daily[1].dt;
-      console.log(weatherTime);
+            var weatherTime = data.daily[1].dt;
+            console.log(weatherTime);
 
-      var unixToUTC = moment.unix(weatherTime);
-      var localTime = moment(unixToUTC).format('MMM-Do-YYYY');
-        
-      console.log(unixToUTC);
-      console.log(localTime);
+            var unixToUTC = moment.unix(weatherTime);
+            var localTime = moment(unixToUTC).format('MMM-Do-YYYY');
+
+            console.log(unixToUTC);
+            console.log(localTime);
+
+            renderIfVisible("Cloudy");
         })
+}
+
+function renderIfVisible(weatherCondition) {
+    if (weatherCondition === "Clear") {
+        isVisibleEl.textContent = "Yes";
+    } else {
+        isVisibleEl.textContent = "No";
+    }
 }
 
 // Render weather icon
