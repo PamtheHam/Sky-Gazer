@@ -4,6 +4,10 @@
     border-radius: 10px;
 }
 
+.is-visible {
+    color: black;
+}
+
 .fa-angle-down {
     color: black;
 }
