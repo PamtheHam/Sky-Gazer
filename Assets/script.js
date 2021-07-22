@@ -1,8 +1,6 @@
 var satelliteContainerEl = document.querySelector("#satellite-container");
 var cityInputEl = document.querySelector("#city-input");
 var satellitePassesContainerEl = document.querySelector(".satellite-passes-container");
-var isVisibleEl = document.querySelector(".is-visible");
-
 
 const currentDate = moment();
 var lat = 0;
@@ -10,6 +8,8 @@ var lon = 0;
 var satelliteName = [];
 var norad = [];
 var noradid;
+var passDate;
+var weatherLocalTime;
 
 function init() {
     getNorad();
@@ -57,7 +57,7 @@ function handleClick(event) {
 }
 
 // Fetch satellite pass information of given norad ID: number of passes, time/date of passes
-function satellitePasses(noradid, lat, lon) {
+function satellitePasses(noradid, lat, lon, weatherData) {
     var otherUrl = "https://satellites.fly.dev/passes/" + noradid + "?lat=" + lat + "&lon=" + lon + "&limit=100&days=7&visible_only=true";
 
     fetch(otherUrl)
@@ -74,24 +74,44 @@ function satellitePasses(noradid, lat, lon) {
 
                 var localSattelite = data[i].culmination.utc_datetime
                 var passDateTime = moment.utc(localSattelite).local().format('MMM-Do-YYYY h:mm A')
-                var passDate = moment.utc(localSattelite).local().format('MMM-Do-YYYY');
                 dateTimePasses.push(passDateTime);
 
             }
 
-            renderSatellitePasses(numberPasses, dateTimePasses);
+            renderSatellitePasses(numberPasses, dateTimePasses, data, weatherData);
         })
 }
 
 // Render satellite pass information to page
-function renderSatellitePasses(numberPasses, dateTimePasses) {
+function renderSatellitePasses(numberPasses, dateTimePasses, data, weatherData) {
     var satelliteNumber = document.createElement("p");
     satelliteNumber.textContent = numberPasses;
     satellitePassesContainerEl.appendChild(satelliteNumber);
 
     for (var i = 0; i < dateTimePasses.length; i++) {
         var satellitePasses = document.createElement("p");
-        satellitePasses.textContent = dateTimePasses[i];
+
+        var localSattelite = data[i].culmination.utc_datetime;
+        passDate = moment.utc(localSattelite).local().format('MMM-Do-YYYY');
+
+        for (var j = 0; j < 8; j++) {
+            console.log(weatherData.daily[j]);
+
+            var weatherTime = weatherData.daily[j].dt;
+            var unixToUTC = moment.unix(weatherTime);
+            weatherLocalTime = moment(unixToUTC).format('MMM-Do-YYYY');
+            console.log(weatherLocalTime);
+            console.log(passDate);
+
+            if (weatherLocalTime === passDate) {
+                if (weatherData.daily[j].weather[0].main === "Clear") {
+                    satellitePasses.textContent = dateTimePasses[i] + " Visible";
+                } else {
+                    satellitePasses.textContent = dateTimePasses[i] + " Not visible";
+                }
+            }
+        }
+
         satellitePassesContainerEl.appendChild(satellitePasses);
     }
 }
@@ -106,13 +126,12 @@ function fetchLatLon(cityInput) {
             lat = data[0].lat;
             lon = data[0].lon;
 
-            fetchWeather(lat, lon);
-            satellitePasses(noradid, lat, lon);
+            fetchWeather(lat, lon, satellitePasses);
         })
 }
 
 // Fetch weather data using lat/lon and date
-function fetchWeather(lat, lon) {
+function fetchWeather(lat, lon, cb) {
     fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts&units=imperial&appid=c8aa884e6f28d929f55e9ba1856815bd")
         .then(function (response) {
             return response.json();
@@ -121,25 +140,9 @@ function fetchWeather(lat, lon) {
             // Get weather icon
             console.log(data);
             console.log(data.daily[0].dt);
-            var weatherTime = data.daily[1].dt;
-            console.log(weatherTime);
 
-            var unixToUTC = moment.unix(weatherTime);
-            var localTime = moment(unixToUTC).format('MMM-Do-YYYY');
-
-            console.log(unixToUTC);
-            console.log(localTime);
-
-            renderIfVisible("Cloudy");
+            cb(noradid, lat, lon, data);
         })
-}
-
-function renderIfVisible(weatherCondition) {
-    if (weatherCondition === "Clear") {
-        isVisibleEl.textContent = "Yes";
-    } else {
-        isVisibleEl.textContent = "No";
-    }
 }
 
 // Render weather icon
