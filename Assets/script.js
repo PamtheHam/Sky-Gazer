@@ -69,7 +69,12 @@ function satellitePasses(noradid, lat, lon) {
             // Date/time of passes
             var dateTimePasses = [];
             for (var i = 0; i < data.length; i++) {
-                dateTimePasses.push(data[i].culmination.utc_datetime);
+                
+                var localSattelite = data[i].culmination.utc_datetime
+                var passDateTime = moment.utc(localSattelite).local().format('MMM-Do-YYYY h:mm A')
+                var passDate = moment.utc(localSattelite).local().format('MMM-Do-YYYY');
+                dateTimePasses.push(passDateTime);
+
             }
 
             renderSatellitePasses(numberPasses, dateTimePasses);
@@ -118,7 +123,7 @@ function fetchWeather(lat, lon) {
       console.log(weatherTime);
 
       var unixToUTC = moment.unix(weatherTime);
-      var localTime = moment(unixToUTC);
+      var localTime = moment(unixToUTC).format('MMM-Do-YYYY');
         
       console.log(unixToUTC);
       console.log(localTime);
