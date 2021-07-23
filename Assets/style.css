@@ -1,23 +1,23 @@
 * {
-    margin: 0px;
-    padding: 0px;
-    border-radius: 0px;
+    margin: auto;
+    padding: auto;
+    border-radius: 7px;
+
 }
 
-.fa-angle-down {
-    color: black;
-}
 header .title {
     margin: 4px;
     color:black;
     font-family: 'Courgette';
+    /* google font */
     letter-spacing: 2px;
     font-size: 45px;
 }
 
 .subtitle {
-font-family: 'Spectral';
-font-size: 22px;
+    font-family: 'Spectral';
+    /* google font */
+    font-size: 22px;
 }
 
 i {
@@ -26,24 +26,32 @@ i {
 }
 
 body {
-    background-color: rebeccapurple;
+    background-color: #3273dc;
 }
+/* color bulma uses for their hero sections */
 
 section {
     justify-content: center;
     text-align: center;
     letter-spacing: 1px;
-    
+}
+
+
+/* keep trying to flex wrap the norad ids */
+.norad-id-button {
+    width: 50%;
+    margin: 3px;
+}
+
+.box {
+    margin: 0 auto;
 }
 
 footer {
-    width: 100%;
-}
-
-article {
-    border: solid black 1px;
-}
-
-.norad-id-button {
     display: block;
+    position: relative;
+}
+
+.satellite-container {
+    display: flex;
 }
