@@ -3,6 +3,7 @@ var cityInputEl = document.querySelector("#city-input");
 var satellitePassesContainerEl = document.querySelector(".satellite-passes-container");
 
 const currentDate = moment();
+
 var lat = 0;
 var lon = 0;
 var satelliteName = [];
@@ -17,7 +18,7 @@ function init() {
 
 // Fetch all norad-IDs
 function getNorad() {
-    // fetch request gets a list of all the repos for the node.js organization
+    // Fetch list of all repos for the node.js organization
     var requestUrl = "https://api.spectator.earth/satellite";
 
     fetch(requestUrl)
@@ -25,9 +26,9 @@ function getNorad() {
             return response.json();
         })
         .then(function (data) {
-            //   loop to cycle through the data to pull out name and Nordad_ID of sattelite.
+            //Loop through data to pull out name and norad id of satellite
             for (var i = 0; i < data.features.length; i++) {
-                // pushing sat name and norad_id into emtpy array.
+                //Push satellite name/norad id into empty array
                 satelliteName.push(data.features[i].properties.name);
                 norad.push(data.features[i].properties.norad_id);
             }
@@ -72,8 +73,8 @@ function satellitePasses(noradid, lat, lon, weatherData) {
             var dateTimePasses = [];
             for (var i = 0; i < data.length; i++) {
 
-                var localSattelite = data[i].culmination.utc_datetime
-                var passDateTime = moment.utc(localSattelite).local().format('MMM-Do-YYYY h:mm A')
+                var localSatellite = data[i].culmination.utc_datetime
+                var passDateTime = moment.utc(localSatellite).local().format('MMM-Do-YYYY h:mm A')
                 dateTimePasses.push(passDateTime);
 
             }
@@ -84,35 +85,45 @@ function satellitePasses(noradid, lat, lon, weatherData) {
 
 // Render satellite pass information to page
 function renderSatellitePasses(numberPasses, dateTimePasses, data, weatherData) {
+    // Render number of satellite passes within next 7 days for chosen norad id
     var satelliteNumber = document.createElement("p");
     satelliteNumber.textContent = numberPasses;
     satellitePassesContainerEl.appendChild(satelliteNumber);
 
+    // Loop through number of satellite passes
     for (var i = 0; i < dateTimePasses.length; i++) {
         var satellitePasses = document.createElement("p");
+        var weatherIcon = document.createElement("img");
 
-        var localSattelite = data[i].culmination.utc_datetime;
-        passDate = moment.utc(localSattelite).local().format('MMM-Do-YYYY');
+        // Change satellite date/time into local date/time
+        var localSatellite = data[i].culmination.utc_datetime;
+        passDate = moment.utc(localSatellite).local().format('MMM-Do-YYYY');
 
+        // Loop through forecast data
         for (var j = 0; j < 8; j++) {
-            console.log(weatherData.daily[j]);
-
+            // Change weather date/time to local date/time
             var weatherTime = weatherData.daily[j].dt;
             var unixToUTC = moment.unix(weatherTime);
             weatherLocalTime = moment(unixToUTC).format('MMM-Do-YYYY');
-            console.log(weatherLocalTime);
-            console.log(passDate);
 
+            // If weather and satellite pass date/time match,
             if (weatherLocalTime === passDate) {
+                // If forecast is clear, render "visible"
                 if (weatherData.daily[j].weather[0].main === "Clear") {
                     satellitePasses.textContent = dateTimePasses[i] + " Visible";
-                } else {
+                } 
+                // If forecast is anything other than clear, render "not visible"
+                else {
                     satellitePasses.textContent = dateTimePasses[i] + " Not visible";
                 }
+
+                // Render weather forecast icon
+                weatherIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherData.daily[j].weather[0].icon + "@2x.png");
             }
         }
 
         satellitePassesContainerEl.appendChild(satellitePasses);
+        satellitePasses.appendChild(weatherIcon);
     }
 }
 
@@ -144,16 +155,5 @@ function fetchWeather(lat, lon, cb) {
             cb(noradid, lat, lon, data);
         })
 }
-
-// Render weather icon
-
-// Check if all conditions (weather, sun illumination) are favorable for viewing
-// If favorable,
-// Render "visible"
-
-// If not favorable,
-// Render "not visible"
-
-// Render how many satellite passes for chosen norad ID
 
 init();
