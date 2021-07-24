@@ -119,6 +119,11 @@ function renderSatellitePasses(numberPasses, dateTimePasses, data, weatherData) 
     // Empty out satellite passes container
     satellitePassesContainerEl.innerHTML = "";
 
+    // Renders chosen satellite name
+    var satelliteNameEl = document.createElement("p");
+    satelliteNameEl.textContent = satellite.name;
+    satellitePassesContainerEl.appendChild(satelliteNameEl);
+
     // Render number of satellite passes within next 7 days for chosen norad id
     var satelliteNumber = document.createElement("p");
     satelliteNumber.textContent = numberPasses + " passes within the next 7 days";
