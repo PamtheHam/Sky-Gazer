@@ -16,13 +16,20 @@
   <div class="modal">
     <div class="modal-background"></div>
     <div class="modal-content">
-      <p>Please input a city.</p>
+      <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <p>Please input a city.</p>
+          </div>
+        </div>
+      </div>
+     
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
   </div>
 
   <header>
-      <section class="hero is-link">
+      <section class="hero is-link has-text-centered">
         <div class="hero-body">
           <p class="title">
             Sky Gazer
@@ -40,35 +47,55 @@
       </section>
     </header>
 
+
     <main>
-    <div class="tile is-parent location">
+    <section>
+
+      <div class="tile is-parent">
+        <div class="tile is-child box">
+          <p class="title">Summary Section</p>
+          <p> here is where we summarize how to use the site</p>
+        </div>
+      </div>
+
+  
+    <div class="tile is-parent">
       <div class="tile is-child box">
+
       <p class="title">Where are you?</p>
       <div class="control">
         <input class="input is-focused is-link is-rounded" id="city-input" type="text" placeholder="Raleigh">
       </div>
     </div>
-    </div>
+     <!-- style the satellite-container to create columns for norad ids -->
+     <!-- try using flex-wrap -->
+        <div class="box" id="satellite-container">
+          <p class="title has-text-centered">Satellite List Box</p>
 
-     <div class="tile is-parent">
-      <div class="tile is-child box" id="satellite-container">
-        <p class="title">Satellites</p>
+        </div>
+
+    <div class="tile is-parent">
+      <div class="tile is-child box" id="previous-satellite">
+        <p class="title">Previously Viewed Satellites</p>
       </div>
     </div>
 
-        <div class="box" id="previous-satellite"></div>
-
-
-
-    <div class="tile is-parent">
-      <div class="tile is-child box satellite-passes-container" id="satellite-passes">
+    <div class="tile is-parent" id="weather">
+      <div class="tile is-child box">
         <p class="title">Weather and Visibility</p>
       </div>
     </div>
+
+    <div class="tile is-parent">
+      <div class="tile is-child box satellite-passes-container" id="satellite-passes">
+      </div>
+    </div>
+  </section>
   </main>
 
+
     <footer>
-      <section class="hero is-link has-text-centered">
+      <section class="hero has-text-centered is-link">
         <div class="hero-body">
           <p class="subtitle">
             <i class="fas fa-star"></i> <strong>Sky Gazer</strong> was created by <u><a href="https://github.com/bvanburenwx">Cody Van Buren</u>, </a>  <u><a href="https://github.com/concreteRoc">Jamel Eggleston</u>, </a> <u><a href="https://github.com/laurenlgoss">Lauren Goss</u>, </a> and <u><a href="https://github.com/PamtheHam">Pamela Hammond</a></u>. <i class="fas fa-star"></i>
