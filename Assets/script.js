@@ -11,9 +11,9 @@ var lat = 0;
 var lon = 0;
 var satelliteName = [];
 var norad = [];
-var noradid;
 var passDate;
 var weatherLocalTime;
+var satellite;
 
 function init() {
     getNorad();
@@ -26,6 +26,7 @@ function renderPreviousSatellite() {
     var previousSatelliteButton = document.createElement("button");
     previousSatelliteButton.setAttribute("class", "norad-id-button");
     previousSatelliteButton.setAttribute("data-id", storedSatellite.noradid);
+    previousSatelliteButton.setAttribute("data-name", storedSatellite.name);
     previousSatelliteButton.textContent = storedSatellite.name + " " + storedSatellite.noradid;
     previousSatelliteContainerEl.appendChild(previousSatelliteButton);
 
