@@ -30,16 +30,14 @@ function renderPreviousSatellite() {
     previousSatelliteButton.textContent = storedSatellite.name + " " + storedSatellite.noradid;
     previousSatelliteContainerEl.appendChild(previousSatelliteButton);
 
-    // Add event listeners to each satellite button
+    // Add event listener to satellite button
     previousSatelliteButton.addEventListener("click", handleClick);
 }
 
 // Fetch all norad-IDs
 function getNorad() {
     // Fetch list of all repos for the node.js organization
-    var requestUrl = "https://api.spectator.earth/satellite";
-
-    fetch(requestUrl)
+    fetch("https://api.spectator.earth/satellite")
         .then(function (response) {
             return response.json();
         })
@@ -76,6 +74,7 @@ function handleClick(event) {
         name: event.target.getAttribute("data-name"),
     }
 
+    // Save satellite name/norad id to local storage
     localStorage.setItem("satellite", JSON.stringify(satellite));
 
     // If user inputs city,
@@ -95,9 +94,7 @@ function closeModal() {
 
 // Fetch satellite pass information of given norad ID: number of passes, time/date of passes
 function satellitePasses(noradid, lat, lon, weatherData) {
-    var otherUrl = "https://satellites.fly.dev/passes/" + noradid + "?lat=" + lat + "&lon=" + lon + "&limit=100&days=7&visible_only=true";
-
-    fetch(otherUrl)
+    fetch("https://satellites.fly.dev/passes/" + noradid + "?lat=" + lat + "&lon=" + lon + "&limit=100&days=7&visible_only=true")
         .then(function (response) {
             return response.json();
         })
@@ -108,11 +105,9 @@ function satellitePasses(noradid, lat, lon, weatherData) {
             // Date/time of passes
             var dateTimePasses = [];
             for (var i = 0; i < data.length; i++) {
-
                 var localSatellite = data[i].culmination.utc_datetime
                 var passDateTime = moment.utc(localSatellite).local().format('MMM-Do-YYYY h:mm A')
                 dateTimePasses.push(passDateTime);
-
             }
 
             renderSatellitePasses(numberPasses, dateTimePasses, data, weatherData);
@@ -126,7 +121,7 @@ function renderSatellitePasses(numberPasses, dateTimePasses, data, weatherData) 
 
     // Render number of satellite passes within next 7 days for chosen norad id
     var satelliteNumber = document.createElement("p");
-    satelliteNumber.textContent = numberPasses;
+    satelliteNumber.textContent = numberPasses + " passes within the next 7 days";
     satellitePassesContainerEl.appendChild(satelliteNumber);
 
     // Loop through number of satellite passes
@@ -187,10 +182,7 @@ function fetchWeather(lat, lon, cb) {
             return response.json();
         })
         .then(function (data) {
-            // Get weather icon
-            console.log(data);
-            console.log(data.daily[0].dt);
-
+            // Call satellitePasses()
             cb(satellite.noradid, lat, lon, data);
         })
 }
