@@ -64,4 +64,11 @@ footer {
 
 img {
     display: inline-block;
+
+}
+
+.content {
+    font-size: x-large;
+    color: #3273dc;
+
 }
