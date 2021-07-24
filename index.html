@@ -16,7 +16,14 @@
   <div class="modal">
     <div class="modal-background"></div>
     <div class="modal-content">
-      <p>Please input a city.</p>
+      <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <p>Please input a city.</p>
+          </div>
+        </div>
+      </div>
+     
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
   </div>
@@ -40,32 +47,24 @@
       </section>
     </header>
 
-    <main>
-    <div class="tile is-parent location">
-      <div class="tile is-child box">
+    <div class="box location">
       <p class="title">Where are you?</p>
       <div class="control">
         <input class="input is-focused is-link is-rounded" id="city-input" type="text" placeholder="Raleigh">
       </div>
     </div>
-    </div>
+     <!-- style the satellite-container to create columns for norad ids -->
+     <!-- try using flex-wrap -->
+        <div class="box" id="satellite-container">
+          <p class="title has-text-centered">Satellite List Box</p>
 
-     <div class="tile is-parent">
-      <div class="tile is-child box" id="satellite-container">
-        <p class="title">Satellites</p>
-      </div>
-    </div>
+        </div>
 
         <div class="box" id="previous-satellite"></div>
 
+    
 
-
-    <div class="tile is-parent">
-      <div class="tile is-child box satellite-passes-container" id="satellite-passes">
-        <p class="title">Weather and Visibility</p>
-      </div>
-    </div>
-  </main>
+      <div class="satellite-passes-container"></div>
 
     <footer>
       <section class="hero is-link has-text-centered">

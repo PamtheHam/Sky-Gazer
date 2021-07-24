@@ -64,3 +64,8 @@ footer {
     flex-direction: column;
     width: auto;  
 }
+
+.content {
+    font-size: x-large;
+    color: #3273dc;
+}
