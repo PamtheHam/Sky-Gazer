@@ -1,3 +1,5 @@
+var modalEl = document.querySelector(".modal");
+var modalCloseButton = document.querySelector(".modal-close");
 var satelliteContainerEl = document.querySelector("#satellite-container");
 var cityInputEl = document.querySelector("#city-input");
 var satellitePassesContainerEl = document.querySelector(".satellite-passes-container");
@@ -54,7 +56,19 @@ function renderNoradIDs() {
 function handleClick(event) {
     noradid = event.target.getAttribute("data-id");
 
-    fetchLatLon(cityInputEl.value);
+    // If user inputs city,
+    if (cityInputEl.value) {
+        fetchLatLon(cityInputEl.value);
+    } 
+    // Else display modal prompting user to input city
+    else {
+        modalEl.classList.add("is-active");
+        modalCloseButton.addEventListener("click", closeModal)
+    }
+}
+
+function closeModal() {
+    modalEl.classList.remove("is-active");
 }
 
 // Fetch satellite pass information of given norad ID: number of passes, time/date of passes
@@ -85,6 +99,9 @@ function satellitePasses(noradid, lat, lon, weatherData) {
 
 // Render satellite pass information to page
 function renderSatellitePasses(numberPasses, dateTimePasses, data, weatherData) {
+    // Empty out satellite passes container
+    satellitePassesContainerEl.innerHTML = "";
+
     // Render number of satellite passes within next 7 days for chosen norad id
     var satelliteNumber = document.createElement("p");
     satelliteNumber.textContent = numberPasses;
@@ -111,7 +128,7 @@ function renderSatellitePasses(numberPasses, dateTimePasses, data, weatherData) 
                 // If forecast is clear, render "visible"
                 if (weatherData.daily[j].weather[0].main === "Clear") {
                     satellitePasses.textContent = dateTimePasses[i] + " Visible";
-                } 
+                }
                 // If forecast is anything other than clear, render "not visible"
                 else {
                     satellitePasses.textContent = dateTimePasses[i] + " Not visible";
