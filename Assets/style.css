@@ -25,16 +25,14 @@ i {
 }
 
 main {
-    background-color: #3273dc;
+    background-color: #485FC7;
 }
 /* color bulma uses for their hero sections */
 
 section {
-    justify-content: center;
     text-align: center;
     letter-spacing: 1px;
 }
-
 
 .norad-id-button {
     width: 25%;
@@ -55,17 +53,22 @@ footer {
 #satellite-container{
     display: inline-block;
     flex-direction: column;
-
-
 }
 
 #satellite-passes {
     display: flex;
     flex-direction: column;
     width: auto;  
+    margin-top: 0;
+}
+
+img {
+    display: inline-block;
+
 }
 
 .content {
     font-size: x-large;
     color: #3273dc;
+
 }
