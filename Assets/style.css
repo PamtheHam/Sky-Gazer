@@ -38,8 +38,12 @@ section {
 
 /* keep trying to flex wrap the norad ids */
 .norad-id-button {
-    width: 50%;
+    width: 33% fit-content;
     margin: 3px;
+    padding: 3px 1px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
 }
 
 .box {
@@ -54,3 +58,4 @@ footer {
 .satellite-container {
     display: flex;
 }
+
