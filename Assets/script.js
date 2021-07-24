@@ -1,5 +1,6 @@
 var modalEl = document.querySelector(".modal");
 var modalCloseButton = document.querySelector(".modal-close");
+var previousSatelliteContainerEl = document.querySelector("#previous-satellite");
 var satelliteContainerEl = document.querySelector("#satellite-container");
 var cityInputEl = document.querySelector("#city-input");
 var satellitePassesContainerEl = document.querySelector(".satellite-passes-container");
@@ -16,6 +17,20 @@ var weatherLocalTime;
 
 function init() {
     getNorad();
+    renderPreviousSatellite();
+}
+
+function renderPreviousSatellite() {
+    var storedSatellite = JSON.parse(localStorage.getItem("satellite"));
+
+    var previousSatelliteButton = document.createElement("button");
+    previousSatelliteButton.setAttribute("class", "norad-id-button");
+    previousSatelliteButton.setAttribute("data-id", storedSatellite.noradid);
+    previousSatelliteButton.textContent = storedSatellite.name + " " + storedSatellite.noradid;
+    previousSatelliteContainerEl.appendChild(previousSatelliteButton);
+
+    // Add event listeners to each satellite button
+    previousSatelliteButton.addEventListener("click", handleClick);
 }
 
 // Fetch all norad-IDs
@@ -44,7 +59,8 @@ function renderNoradIDs() {
     for (var i = 0; i < norad.length; i++) {
         var satelliteButton = document.createElement("button");
         satelliteButton.setAttribute("class", "norad-id-button");
-        satelliteButton.setAttribute("data-id", norad[i]);
+        satelliteButton.setAttribute("data-id", norad[i])
+        satelliteButton.setAttribute("data-name", satelliteName[i]);
         satelliteButton.textContent = satelliteName[i] + " " + norad[i];
         satelliteContainerEl.appendChild(satelliteButton);
 
@@ -54,7 +70,12 @@ function renderNoradIDs() {
 }
 
 function handleClick(event) {
-    noradid = event.target.getAttribute("data-id");
+    satellite = {
+        noradid: event.target.getAttribute("data-id"),
+        name: event.target.getAttribute("data-name"),
+    }
+
+    localStorage.setItem("satellite", JSON.stringify(satellite));
 
     // If user inputs city,
     if (cityInputEl.value) {
@@ -169,7 +190,7 @@ function fetchWeather(lat, lon, cb) {
             console.log(data);
             console.log(data.daily[0].dt);
 
-            cb(noradid, lat, lon, data);
+            cb(satellite.noradid, lat, lon, data);
         })
 }
 
