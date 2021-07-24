@@ -32,29 +32,28 @@
       </section>
     </header>
 
-    <div class="box location">
+    <main>
+    <div class="tile is-parent location">
+      <div class="tile is-child box">
       <p class="title">Where are you?</p>
       <div class="control">
         <input class="input is-focused is-link is-rounded" id="city-input" type="text" placeholder="Raleigh">
       </div>
     </div>
-     <!-- style the satellite-container to create columns for norad ids -->
-     <!-- try using flex-wrap -->
+    </div>
+
      <div class="tile is-parent">
       <div class="tile is-child box" id="satellite-container">
-        <p class="title">Satellite List Box</p>
+        <p class="title">Satellites</p>
       </div>
     </div>
 
     <div class="tile is-parent">
-      <div class="tile is-child box" id="satellite-passes-container">
-        <p class="title">Satellite Passes Container</p>
+      <div class="tile is-child box satellite-passes-container" id="satellite-passes">
+        <p class="title">Weather and Visibility</p>
       </div>
     </div>
-
-    
-
-      <div class="satellite-passes-container"></div>
+  </main>
 
     <footer>
       <section class="hero is-link has-text-centered">
