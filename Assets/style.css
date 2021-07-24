@@ -2,7 +2,6 @@
     margin: auto;
     padding: auto;
     border-radius: 7px;
-
 }
 
 header .title {
@@ -25,7 +24,7 @@ i {
     color: yellow;
 }
 
-body {
+main {
     background-color: #3273dc;
 }
 /* color bulma uses for their hero sections */
@@ -37,10 +36,11 @@ section {
 }
 
 
-/* keep trying to flex wrap the norad ids */
 .norad-id-button {
-    width: 50%;
-    margin: 3px;
+    width: 25%;
+    margin: 4px 4px;
+    padding: 3px;
+    align-items: center;
 }
 
 .box {
@@ -52,6 +52,15 @@ footer {
     position: relative;
 }
 
-.satellite-container {
+#satellite-container{
+    display: inline-block;
+    flex-direction: column;
+
+
+}
+
+#satellite-passes {
     display: flex;
+    flex-direction: column;
+    width: auto;  
 }

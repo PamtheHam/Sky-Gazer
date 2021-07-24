@@ -1,3 +1,6 @@
+var modalEl = document.querySelector(".modal");
+var modalCloseButton = document.querySelector(".modal-close");
+var previousSatelliteContainerEl = document.querySelector("#previous-satellite");
 var satelliteContainerEl = document.querySelector("#satellite-container");
 var cityInputEl = document.querySelector("#city-input");
 var satellitePassesContainerEl = document.querySelector(".satellite-passes-container");
@@ -8,12 +11,27 @@ var lat = 0;
 var lon = 0;
 var satelliteName = [];
 var norad = [];
-var noradid;
 var passDate;
 var weatherLocalTime;
+var satellite;
 
 function init() {
     getNorad();
+    renderPreviousSatellite();
+}
+
+function renderPreviousSatellite() {
+    var storedSatellite = JSON.parse(localStorage.getItem("satellite"));
+
+    var previousSatelliteButton = document.createElement("button");
+    previousSatelliteButton.setAttribute("class", "norad-id-button");
+    previousSatelliteButton.setAttribute("data-id", storedSatellite.noradid);
+    previousSatelliteButton.setAttribute("data-name", storedSatellite.name);
+    previousSatelliteButton.textContent = storedSatellite.name + " " + storedSatellite.noradid;
+    previousSatelliteContainerEl.appendChild(previousSatelliteButton);
+
+    // Add event listeners to each satellite button
+    previousSatelliteButton.addEventListener("click", handleClick);
 }
 
 // Fetch all norad-IDs
@@ -42,7 +60,8 @@ function renderNoradIDs() {
     for (var i = 0; i < norad.length; i++) {
         var satelliteButton = document.createElement("button");
         satelliteButton.setAttribute("class", "norad-id-button");
-        satelliteButton.setAttribute("data-id", norad[i]);
+        satelliteButton.setAttribute("data-id", norad[i])
+        satelliteButton.setAttribute("data-name", satelliteName[i]);
         satelliteButton.textContent = satelliteName[i] + " " + norad[i];
         satelliteContainerEl.appendChild(satelliteButton);
 
@@ -52,9 +71,26 @@ function renderNoradIDs() {
 }
 
 function handleClick(event) {
-    noradid = event.target.getAttribute("data-id");
+    satellite = {
+        noradid: event.target.getAttribute("data-id"),
+        name: event.target.getAttribute("data-name"),
+    }
 
-    fetchLatLon(cityInputEl.value);
+    localStorage.setItem("satellite", JSON.stringify(satellite));
+
+    // If user inputs city,
+    if (cityInputEl.value) {
+        fetchLatLon(cityInputEl.value);
+    } 
+    // Else display modal prompting user to input city
+    else {
+        modalEl.classList.add("is-active");
+        modalCloseButton.addEventListener("click", closeModal)
+    }
+}
+
+function closeModal() {
+    modalEl.classList.remove("is-active");
 }
 
 // Fetch satellite pass information of given norad ID: number of passes, time/date of passes
@@ -85,6 +121,9 @@ function satellitePasses(noradid, lat, lon, weatherData) {
 
 // Render satellite pass information to page
 function renderSatellitePasses(numberPasses, dateTimePasses, data, weatherData) {
+    // Empty out satellite passes container
+    satellitePassesContainerEl.innerHTML = "";
+
     // Render number of satellite passes within next 7 days for chosen norad id
     var satelliteNumber = document.createElement("p");
     satelliteNumber.textContent = numberPasses;
@@ -111,7 +150,7 @@ function renderSatellitePasses(numberPasses, dateTimePasses, data, weatherData) 
                 // If forecast is clear, render "visible"
                 if (weatherData.daily[j].weather[0].main === "Clear") {
                     satellitePasses.textContent = dateTimePasses[i] + " Visible";
-                } 
+                }
                 // If forecast is anything other than clear, render "not visible"
                 else {
                     satellitePasses.textContent = dateTimePasses[i] + " Not visible";
@@ -152,7 +191,7 @@ function fetchWeather(lat, lon, cb) {
             console.log(data);
             console.log(data.daily[0].dt);
 
-            cb(noradid, lat, lon, data);
+            cb(satellite.noradid, lat, lon, data);
         })
 }
 
