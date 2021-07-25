@@ -151,11 +151,15 @@ function renderSatellitePasses(numberPasses, dateTimePasses, data, weatherData) 
             if (weatherLocalTime === passDate) {
                 // If forecast is clear, render "visible"
                 if (weatherData.daily[j].weather[0].main === "Clear") {
-                    satellitePasses.textContent = dateTimePasses[i] + " Visible";
+                  var Visible = " Visible"
+                    satellitePasses.textContent = dateTimePasses[i] + Visible;
+                    satellitePasses.innerHTML = dateTimePasses[i] + Visible.bold().fontsize(4).fontcolor("green");
                 }
                 // If forecast is anything other than clear, render "not visible"
                 else {
-                    satellitePasses.textContent = dateTimePasses[i] + " Not visible";
+                    var notVisible = " Not Visible"
+                    satellitePasses.textContent = dateTimePasses[i] + notVisible;
+                    satellitePasses.innerHTML = dateTimePasses[i] + notVisible.bold().fontsize(4).fontcolor("red");
                 }
 
                 // Render weather forecast icon
