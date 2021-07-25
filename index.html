@@ -17,13 +17,15 @@
 <body>
   <div class="modal">
     <div class="modal-background"></div>
-    <div class="modal-content">
+    <div class="modal-content" 
       <p>Please input a valid city.</p>
+
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
   </div>
 
   <header>
+
     <section class="hero is-link">
       <div class="hero-body">
         <p class="title">
@@ -60,12 +62,21 @@
 
     <div class="box" id="previous-satellite"></div>
 
-    <div class="tile is-parent">
-      <div class="tile is-child box satellite-passes-container" id="satellite-passes">
+
+    <div class="tile is-parent" id="weather">
+      <div class="tile is-child box">
         <p class="title">Weather and Visibility</p>
       </div>
     </div>
+
+
+    <div class="tile is-parent">
+      <div class="tile is-child box satellite-passes-container" id="satellite-passes">
+      </div>
+    </div>
+  </section>
   </main>
+
 
   <footer>
     <section class="hero is-link has-text-centered">
@@ -83,6 +94,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="./Assets/script.js"></script>
+
 
 </body>
 
