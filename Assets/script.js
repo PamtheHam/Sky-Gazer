@@ -80,7 +80,7 @@ function handleClick(event) {
     // If user inputs city,
     if (cityInputEl.value) {
         fetchLatLon(cityInputEl.value);
-    } 
+    }
     // Else display modal prompting user to input city
     else {
         modalEl.classList.add("is-active");
