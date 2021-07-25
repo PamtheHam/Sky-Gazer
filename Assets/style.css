@@ -63,6 +63,11 @@ footer {
     display: flex;
     flex-direction: column;
     width: auto;  
+    margin-top: 0;
+}
+
+img {
+    display: inline-block;
 }
 
 .content {
