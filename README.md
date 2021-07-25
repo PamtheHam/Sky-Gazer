@@ -6,8 +6,7 @@
 ## Table of Contents
  * [Technologies](#technologies)
  * [Screen Shot](#screen-shot) 
- * [File Architecture](#file-architecture)
- * [Click here to visit the site!]()
+ * [Click here to visit the site!](https://pamtheham.github.io/Sky-Gazer/)
 ---
 
 ## Technologies 
@@ -17,16 +16,18 @@
 ><b>APIs:</b>
  * [Spectator Earth](https://spectator.earth/)
  * [Satellite Passes](https://satellites.fly.dev/)
- * [Open Weather Map](https://openweathermap.org/api)
+ * [Open Weather Geocoding](https://openweathermap.org/api/geocoding-api)
+ * [Open Weather One Call](https://openweathermap.org/api/one-call-api)
+ 
+
 ---
 
 ## Screen Shot
----
 
-## File Architecture
-<details><summary><b>Click To View</b></summary>
+<img scr="./Assets/imgs/Screenshot1.jpg">
+<img scr="./Assets/imgs/Screenshot2.jpg">
+<img scr="./Assets/imgs/Screenshot3.jpg">
 
-</details>
 ---
 
 [Back to Top](#welcome-to-sky-gazer)
