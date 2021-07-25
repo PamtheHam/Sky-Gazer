@@ -17,14 +17,26 @@
 <body>
   <div class="modal">
     <div class="modal-background"></div>
+
     <div class="modal-content" 
       <p>Please input a valid city.</p>
+
 
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
   </div>
 
   <header>
+
+
+    <main>
+    <section>
+
+      <div class="tile is-parent">
+        <div class="tile is-child box">
+          <p class="title">Summary Section</p>
+          <p> here is where we summarize how to use the site</p>
+        </div>
 
     <section class="hero is-link">
       <div class="hero-body">
@@ -40,6 +52,7 @@
           <i class="fas fa-umbrella"></i>
           <i class="fas fa-cloud-rain"></i>
         </p>
+
       </div>
     </section>
   </header>
@@ -47,12 +60,20 @@
   <main>
     <div class="tile is-parent location">
       <div class="tile is-child box">
-        <p class="title">Where are you?</p>
-        <div class="control">
-          <input class="input is-focused is-link is-rounded" id="city-input" type="text" placeholder="Raleigh">
-        </div>
+
+      <p class="title">Where are you?</p>
+      <div class="control">
+        <input class="input is-focused is-link is-rounded" id="city-input" type="text" placeholder="Raleigh">
       </div>
     </div>
+    </div>
+
+     <div class="tile is-parent">
+      <div class="tile is-child box" id="satellite-container">
+        <p class="title">Satellites</p>
+      </div>
+    </div>
+
 
     <div class="tile is-parent">
       <div class="tile is-child box" id="satellite-container">
@@ -78,6 +99,7 @@
   </main>
 
 
+
   <footer>
     <section class="hero is-link has-text-centered">
       <div class="hero-body">
@@ -94,7 +116,6 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="./Assets/script.js"></script>
-
 
 </body>
 
