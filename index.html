@@ -17,90 +17,78 @@
 <body>
   <div class="modal">
     <div class="modal-background"></div>
-      <div class="modal-content"</div>
+    <div class="modal-content"></div>
       <div class="card">
         <div class="card-content">
           <div class="content">
-            <p>Please input a city.</p>
+            <p>Please input a valid city.</p>
           </div>
         </div>
       </div>
-     
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
-  </div>
 
   <header>
-    <section>
-    <section class="hero is-link">
-      <div class="hero-body">
-        <p class="title">
-          Sky Gazer
-        </p>
-        <p class="subtitle">
-          <i class="fas fa-star"></i> A website dedicated to viewing the heavens <i class="fas fa-star"></i>
-          <br>
-          <i class="fas fa-cloud"></i>
-          <i class="fas fa-sun"></i>
-          <i class="fas fa-snowflake"></i>
-          <i class="fas fa-umbrella"></i>
-          <i class="fas fa-cloud-rain"></i>
-        </p>
-      </div>
-      
-    </section>
+      <section class="hero is-link">
+        <div class="hero-body">
+          <p class="title">
+            Sky Gazer
+          </p>
+          <p class="subtitle">
+            <i class="fas fa-star"></i> A website dedicated to viewing the heavens <i class="fas fa-star"></i>
+            <br>
+            <i class="fas fa-cloud"></i>
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-snowflake"></i>
+            <i class="fas fa-umbrella"></i>
+            <i class="fas fa-cloud-rain"></i>
+          </p>
+        </div>
+      </section>
   </header>
 
-    <main>
-      
-      <section>
-       <div class="tile is-parent">
+  <main>
+    <section>
+      <div class="tile is-parent">
         <div class="tile is-child box">
           <p class="title">Summary Section</p>
-          <p> here is where we summarize how to use the site</p>
-        </div>
-        </div>
-
-  
-    <div class="tile is-parent location">
-      <div class="tile is-child box">
-        <p class="title">Where are you?</p>
-        <div class="control">
-          <input class="input is-focused is-link is-rounded" id="city-input" type="text" placeholder="Please input city">
+          <p> Welcome to Sky Gazer! <br> This is a website that will allow you to choose which satellite you would like to view, and give you weather information for the next passes within 7 days so that you can know whether each flyover will be visible in your location or not. All you have to do is input your city, then choose which satellite you would like to view. You will then be shown the date and times of the next flyovers and the weather forecast for that day. Our website will do all the work for you--taking into account both weather forecast and sun illumination--to tell you whether that flyover will be visible in your area.</p>
         </div>
       </div>
-    </div>
-    </div>
 
-     <div class="tile is-parent">
-      <div class="tile is-child box" id="satellite-container">
-        <p class="title">Satellites</p>
-      </div>
-    </div>
-
-
-    <div class="tile is-parent">
-      <div class="tile is-child box" id="previous-satellite">
-        <p class="title">Previously Viewed Satellites</p>
-      </div>
+      <div class="tile is-parent location">
+        <div class="tile is-child box">
+          <p class="title">Where are you?</p>
+          <div class="control">
+            <input class="input is-focused is-link is-rounded" id="city-input" type="text"
+              placeholder="Please input city">
+          </div>
         </div>
-
-
-    <div class="tile is-parent" id="weather">
-      <div class="tile is-child box">
-        <p class="title">Weather and Visibility</p>
       </div>
-    </div>
 
-
-    <div class="tile is-parent">
-      <div class="tile is-child box satellite-passes-container" id="satellite-passes">
+      <div class="tile is-parent">
+        <div class="tile is-child box" id="satellite-container">
+          <p class="title">Satellites</p>
+        </div>
       </div>
-    </div>
-  </section>
+
+      <div class="tile is-parent">
+        <div class="tile is-child box" id="previous-satellite">
+          <p class="title">Previously Viewed Satellites</p>
+        </div>
+      </div>
+
+      <div class="tile is-parent" id="weather">
+        <div class="tile is-child box">
+          <p class="title">Weather and Visibility</p>
+        </div>
+      </div>
+
+      <div class="tile is-parent">
+        <div class="tile is-child box satellite-passes-container" id="satellite-passes"></div>
+      </div>
+    </section>
   </main>
-
-
 
   <footer>
     <section class="hero is-link has-text-centered">
@@ -118,7 +106,6 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="./Assets/script.js"></script>
-
 </body>
 
 </html>
