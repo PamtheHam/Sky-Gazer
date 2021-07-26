@@ -24,9 +24,9 @@
 
 ## Screen Shot
 
-<img scr="./Assets/imgs/Screenshot1.jpg">
-<img scr="./Assets/imgs/Screenshot2.jpg">
-<img scr="./Assets/imgs/Screenshot3.jpg">
+![Screenshot1](Assets/imgs/Screenshot1.jpg)
+![Screenshot2](Assets/imgs/Screenshot2.jpg)
+![Screenshot3](Assets/imgs/Screenshot3.jpg)
 
 ---
 
